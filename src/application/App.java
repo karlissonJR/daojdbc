@@ -8,6 +8,7 @@ import model.entities.Seller;
 
 import java.sql.Connection;
 import java.time.LocalDate;
+import java.util.List;
 
 public class App {
 
@@ -15,10 +16,12 @@ public class App {
 
         SellerDao sellerDao = DaoFactory.createSellerDao();
 
-        Seller seller = sellerDao.findById(3);
+//        Seller seller = sellerDao.findById(3);
 
-        System.out.println(seller);
+        Department department = new Department(2, "Electronics");
 
+        List<Seller> sellersByDepartment = sellerDao.findByDepartment(department);
+        sellersByDepartment.forEach(System.out::println);
     }
 
 }
