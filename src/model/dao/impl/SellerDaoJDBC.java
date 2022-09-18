@@ -11,7 +11,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class SellerDaoJDBC implements SellerDao {
 
@@ -72,7 +74,44 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public List<Seller> findAll() {
-        return null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+
+        List<Seller> sellers = new ArrayList<>();
+
+        try {
+
+            preparedStatement = connection.prepareStatement(
+                    "SELECT seller.*, department.Name as DepName "
+                    + "FROM seller INNER JOIN department "
+                    + "ON seller.DepartmentId = department.Id "
+                    + "ORDER BY Name"
+            );
+
+            resultSet = preparedStatement.executeQuery();
+            Map<Integer, Department> departmentMap = new HashMap<>();
+
+            while (resultSet.next()) {
+
+                Department department = departmentMap.get(resultSet.getInt("DepartmentId"));
+
+                if (department == null) {
+                    department = instantiateDepartment(resultSet);
+                    departmentMap.put(department.getId(), department);
+                }
+
+                Seller obj = instantiateSeller(resultSet, department);
+                sellers.add(obj);
+            }
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(preparedStatement);
+            DB.closeResultSet(resultSet);
+        }
+
+        return sellers;
     }
 
     @Override

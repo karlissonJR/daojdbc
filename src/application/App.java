@@ -20,8 +20,11 @@ public class App {
 
         Department department = new Department(2, "Electronics");
 
-        List<Seller> sellersByDepartment = sellerDao.findByDepartment(department);
-        sellersByDepartment.forEach(System.out::println);
+//        List<Seller> sellersByDepartment = sellerDao.findByDepartment(department);
+//        sellersByDepartment.forEach(System.out::println);
+
+        List<Seller> allSellers = sellerDao.findAll();
+        allSellers.forEach(System.out::println);
     }
 
 }
