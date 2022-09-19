@@ -55,15 +55,15 @@ public class DB {
     }
 
     private static Properties loadProperties() {
-        try (FileInputStream fs = new FileInputStream("db.properties")){
+        try (FileInputStream file = new FileInputStream(".env")){
 
             Properties props = new Properties();
-            props.load(fs);
+            props.load(file);
 
-            props.setProperty("user", System.getenv("USER"));
-            props.setProperty("password", System.getenv("PASSWORD"));
-            props.setProperty("url", System.getenv("URL"));
-            props.setProperty("useSSL", System.getenv("USESSL"));
+//            props.setProperty("user", System.getenv("USER"));
+//            props.setProperty("password", System.getenv("PASSWORD"));
+//            props.setProperty("url", System.getenv("URL"));
+//            props.setProperty("useSSL", System.getenv("USESSL"));
 
             return props;
 

@@ -36,13 +36,15 @@ public class App {
 //        System.out.println(seller);
 
 
-        Seller seller = sellerDao.findById(11);
+//        Seller seller = sellerDao.findById(11);
+//
+//        seller.setName("Orejuela");
+//        seller.setEmail("carlpp1@gmail.com");
+//        sellerDao.update(seller);
+//        seller = sellerDao.findById(11);
+//        System.out.println(seller);
 
-        seller.setName("Orejuela");
-        seller.setEmail("carlpp1@gmail.com");
-        sellerDao.update(seller);
-        seller = sellerDao.findById(11);
-        System.out.println(seller);
+        sellerDao.deleteById(9);
     }
 
 }
