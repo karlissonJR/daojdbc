@@ -8,11 +8,16 @@ import model.entities.Seller;
 
 import java.sql.Connection;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 
 public class App {
 
     public static void main(String[] args) {
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+        LocalDate birthDate = LocalDate.parse("11/05/1997", formatter);
 
         SellerDao sellerDao = DaoFactory.createSellerDao();
 
@@ -25,6 +30,10 @@ public class App {
 
         List<Seller> allSellers = sellerDao.findAll();
         allSellers.forEach(System.out::println);
+
+//        Seller seller = new Seller("Greg", "greg@gmail.com", birthDate, 4000.0, department);
+//        sellerDao.insert(seller);
+//        System.out.println(seller);
     }
 
 }
